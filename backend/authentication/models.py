@@ -10,7 +10,7 @@ class User(AbstractUser):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     points = models.IntegerField(default=0)
-    qr_code = models.ImageField()
+    # qr_code = models.ImageField()
     # transactions/cart?
 
 class Teacher(models.Model):
