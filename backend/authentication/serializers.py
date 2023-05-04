@@ -2,8 +2,17 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
-from .models import User
+from .models import User, Student, Teacher
 
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Student
+        fields = ['points']
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = []
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -28,12 +37,15 @@ class RegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
 
+    teacher = TeacherSerializer(read_only=True)
+    student = StudentSerializer(read_only=True)
+
     class Meta:
         model = User
         # If added new columns through the User model, add them in the fields
         # list as seen below
         fields = ('username', 'password', 'email',
-                  'first_name', 'last_name', 'is_student', 'is_teacher')
+                  'first_name', 'last_name', 'is_student', 'is_teacher', 'teacher', 'student')
 
     def create(self, validated_data):
 
