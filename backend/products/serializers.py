@@ -1,11 +1,11 @@
 from rest_framework import serializers
-from .models import Products, Cart , CartProduct
+from .models import Products, Cart
 
 class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
         fields = '__all__'
-        # ['id', 'name', 'cost', 'category', 'image','inventory','is_available']
+        # ['id', 'name', 'cost', 'category','inventory','is_available']
 
 class CartSerializer(serializers.ModelSerializer):
     products = ProductsSerializer(many=True, read_only=True)
@@ -14,9 +14,9 @@ class CartSerializer(serializers.ModelSerializer):
         fields = ['id', 'user', 'products', 'total', 'submitted']
         depth = 1
 
-class CartProductSerializer(serializers.ModelSerializer):
-    cart = CartSerializer(many=True, read_only=True)
-    product = ProductsSerializer(many=True, read_only=True)
-    class Meta:
-        model = CartProduct
-        fields = ['id', 'cart', 'product', 'quantity']
+# class CartProductSerializer(serializers.ModelSerializer):
+#     cart = CartSerializer(many=True, read_only=True)
+#     product = ProductsSerializer(many=True, read_only=True)
+#     class Meta:
+#         model = CartProduct
+#         fields = ['id', 'cart', 'product', 'quantity']

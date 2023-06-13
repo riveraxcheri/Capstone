@@ -1,12 +1,11 @@
 from django.db import models
-from authentication import Student
+from authentication.models import User
 
 # Create your models here.
 class Products(models.Model):
     name = models.CharField(max_length=100)
     cost = models.IntegerField(default=10)
     category = models.CharField(max_length=100)
-    image = models.ImageField(default='static/images/man.png')
     inventory = models.IntegerField(default=1)
     is_available = models.BooleanField('availability status',default=True)
 
@@ -14,16 +13,19 @@ class Products(models.Model):
         return f"{self.name}"
 
 class Cart(models.Model):
-    user = models.ManyToManyField(Student)
-    products = models.ManyToManyField(Products)
+    user = models.ForeignKey(User, null=0 ,on_delete=models.CASCADE)
+    products = models.ManyToManyField(Products, default=[])
     total = models.IntegerField(default=0)
     submitted = models.BooleanField(default=False)
 
-class CartProduct(models.Model):
-    cart = models.ForeignKey(Cart)
-    product = models.ForeignKey(Products)
-    quantity = models.IntegerField(default=1)
-
     def __str__(self) -> str:
-        return f"{self.product}"
+        return f"{self.user}'s Cart"
+
+# class CartProduct(models.Model):
+#     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+#     product = models.ForeignKey(Products, on_delete=models.CASCADE)
+#     quantity = models.IntegerField(default=1)
+
+#     def __str__(self) -> str:
+#         return f"{self.product}"
 
