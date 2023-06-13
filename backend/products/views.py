@@ -35,13 +35,7 @@ def update_products(request, pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save(data=request.data)
             return Response(serializer.data)
-
-@api_view (['DELETE'])
-@permission_classes([IsAuthenticated])
-def delete_products(request, pk):
-    products = get_object_or_404(Products, pk=pk)
-    serializer = ProductsSerializer(products, data=request.data)
-    if request.method == 'DELETE':
+    elif request.method == 'DELETE':
         Products.delete(pk=pk)
         return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
     
