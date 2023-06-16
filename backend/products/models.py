@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import User
+from authentication.models import User, Student
 
 # Create your models here.
 class Products(models.Model):
@@ -13,7 +13,7 @@ class Products(models.Model):
         return f"{self.name}"
 
 class Cart(models.Model):
-    cart_user = models.ForeignKey(User, related_name='cart_user', null=0 ,on_delete=models.CASCADE)
+    cart_user = models.ForeignKey(Student, null=0 ,on_delete=models.CASCADE)
     products = models.ManyToManyField(Products, default=[])
     total = models.IntegerField(default=0)
     submitted = models.BooleanField(default=False)

@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Products, Cart
 # from authentication.serializers import RegistrationSerializer
 from django.contrib.auth import get_user_model
+from authentication.serializers import StudentSerializer
 User = get_user_model()
 
 class ProductsSerializer(serializers.ModelSerializer):
@@ -11,15 +12,15 @@ class ProductsSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     products = ProductsSerializer(many=True, read_only=True)
-    cart_user = User
+    cart_user = StudentSerializer(many=False, read_only=True)
     class Meta:
         model = Cart
         fields = ['id', 'cart_user', 'products', 'total', 'submitted']
         depth = 1
-    def create(self, validated_data):
-        return Cart.objects.create(**validated_data)
-    def update(self, instance, validated_data):
-        return super().update(instance, validated_data)
+    # def create(self, validated_data):
+    #     return Cart.objects.create(**validated_data)
+    # def update(self, instance, validated_data):
+    #     return super().update(instance, validated_data)
     
     
 # class CartProductSerializer(serializers.ModelSerializer):

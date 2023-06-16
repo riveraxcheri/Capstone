@@ -7,13 +7,13 @@ from .models import User, Student, Teacher
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['user','points']
+        fields = ['user_id','points']
         depth = 1
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ['user']
+        fields = ['user_id']
         depth = 1
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
