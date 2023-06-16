@@ -7,7 +7,7 @@ from .models import User, Student, Teacher
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['user_id','points']
+        fields = ['user_id', 'points']
         depth = 1
 
 class TeacherSerializer(serializers.ModelSerializer):

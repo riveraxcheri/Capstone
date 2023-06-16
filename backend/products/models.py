@@ -10,16 +10,19 @@ class Products(models.Model):
     is_available = models.BooleanField('availability status',default=True)
 
     def __str__(self) -> str:
-        return f"{self.name}"
+        return f"{self.name}" 
 
 class Cart(models.Model):
-    cart_user = models.ForeignKey(Student, null=0 ,on_delete=models.CASCADE)
+    cart_user = models.OneToOneField(Student, null=0 ,on_delete=models.CASCADE)
     products = models.ManyToManyField(Products, default=[])
     total = models.IntegerField(default=0)
     submitted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return f"{self.cart_user.username}'s Cart"
+
+
+
 
 # class CartProduct(models.Model):
 #     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -28,4 +31,13 @@ class Cart(models.Model):
 
 #     def __str__(self) -> str:
 #         return f"{self.product}"
+#/////////////////////////////////////////////////////////////
+# def __str__(self):
+#     return f"{self.id}"
+#
+# def get_total(self):
+#     return f"{self.products.cost}" * len(f"{self.products}")
 
+# def save(self, *args, **kwargs):
+#     self.total = self.get_total()
+#     super().save(*args, **kwargs)

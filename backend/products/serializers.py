@@ -17,6 +17,8 @@ class CartSerializer(serializers.ModelSerializer):
         model = Cart
         fields = ['id', 'cart_user', 'products', 'total', 'submitted']
         depth = 1
+
+    
     # def create(self, validated_data):
     #     return Cart.objects.create(**validated_data)
     # def update(self, instance, validated_data):

@@ -8,7 +8,6 @@ from .serializers import ProductsSerializer
 from .models import Cart
 from .serializers import CartSerializer
 from django.shortcuts import get_object_or_404
-from authentication.models import User, Student
 
 # Create your views here.
 # PRODUCTS CRUD /// *DONE*
@@ -48,21 +47,8 @@ def update_products(request, pk):
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_cart(request):
-    # print(
-    #     'User ', f"{request.cart_user.username}")
-    # cart = Cart.objects.filter(request.cart_user)
-    # if request.method == 'GET':
-    #     cart = get_object_or_404(Cart)
-    #     serializer = CartSerializer(cart, many=True)
-    #     if cart == True:
-    #         print (f"{request.cart_user.username}, {request.data}")
-    #         return Response(serializer.data)
-    #     return Response(f"No Cart in Progress for {request.cart_user.username}",status=status.HTTP_404_NOT_FOUND)
     if request.method == 'POST':
-        # cart.create()
-        # print (request.data) #Logging data for debugging
-        cart = Cart.objects.create()
-        serializer = CartSerializer(cart, data=request.data)
+        serializer = CartSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(data=request.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -71,7 +57,8 @@ def user_cart(request):
 @api_view (['GET','PUT','DELETE'])
 @permission_classes([IsAuthenticated])
 def update_cart(request, cart_user_id):
-    cart = get_object_or_404(Cart, cart_user_id=cart_user_id)
+    cart_user_id = Cart.objects.get(cart_user_id.user_id)
+    cart = get_object_or_404(Cart, cart_user_id)
     serializer = CartSerializer(cart, data=request.data)
     if request.method == 'PUT':
         if serializer.is_valid(raise_exception=True):
@@ -83,9 +70,51 @@ def update_cart(request, cart_user_id):
         return Response(status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'GET':
         if cart == True:
-            print (f"{request.cart_user.username}, {request.data}")
+            print (f"{request.cart_user}, {request.data}")
             return Response(serializer.data)
         return Response(f"No Cart in Progress for {request.cart_user.username}",status=status.HTTP_404_NOT_FOUND)
+    
+    # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+# REFERENCES
+# // stack overflow examples // 
+# 1.
+# from django.db.models import F, Sum
+#
+# def cart(request):
+#     cart = Cart.objects.annotate(
+#         cost=Sum(F('products__item__cost') * F('products__quantity'))
+#     ).get(
+#         cart_user=request.user
+#     )
+#     cart.total = cart.cost
+#     cart.save()
+# 2.
+# def cart(request):
+#     cart= Cart.objects.get(cart_user=request.user)
+#     products= Products.objects.filter(cart=cart)
+#     total = 0
+#     for i in products:
+#         total = i.count * i.products.cost + cart.total
+#         cart.update(total=total)
+#         cart.save()
+# 3.
+# #class OrderItem(DateTimeModel):
+#     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="order_items")
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     quantity = models.PositiveIntegerField(default=1, blank=True, null=True)
+#     price = models.DecimalField(max_length=100, default=0, max_digits=7, decimal_places=2)
+#     total = models.DecimalField(max_digits=7, decimal_places=2, default=0)
+# # need to add tax percentage along with it tax may be changed in future so we need to add tax percentage in this
+#
+# def __str__(self):
+#     return f"{self.id} - {self.order}"
+#
+# def get_total(self):
+#     return round(float(self.price) * float(self.quantity))
+#
+# def save(self, *args, **kwargs):
+#     self.total = self.get_total()
+#     super().save(*args, **kwargs)
 
 # /// From Comments API for reference:
 # @api_view(['GET'])
@@ -146,3 +175,22 @@ def update_cart(request, cart_user_id):
 #     elif request.method == 'DELETE':
 #         product.delete()
 #         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# /// Other GET CART attempt info:
+# @api_view(['GET', 'POST'])
+# @permission_classes([IsAuthenticated])
+# def user_cart(request):
+    # print(
+    #     'User ', f"{request.cart_user.username}")
+    # cart = Cart.objects.filter(request.cart_user)
+    # if request.method == 'GET':
+    #     cart = get_object_or_404(Cart)
+    #     serializer = CartSerializer(cart, many=True)
+    #     if cart == True:
+    #         print (f"{request.cart_user.username}, {request.data}")
+    #         return Response(serializer.data)
+    #     return Response(f"No Cart in Progress for {request.cart_user.username}",status=status.HTTP_404_NOT_FOUND)
+
+        # cart.create()
+        # print (request.data) #Logging data for debugging
+        # cart = Cart.objects.create()
