@@ -7,12 +7,14 @@ from .models import User, Student, Teacher
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['points']
+        fields = ['user','points']
+        depth = 1
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = []
+        fields = ['user']
+        depth = 1
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -46,6 +48,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         # list as seen below
         fields = ('username', 'password', 'email',
                   'first_name', 'last_name', 'is_student', 'is_teacher', 'teacher', 'student')
+        
 
     def create(self, validated_data):
 

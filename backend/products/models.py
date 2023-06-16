@@ -13,13 +13,13 @@ class Products(models.Model):
         return f"{self.name}"
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, null=0 ,on_delete=models.CASCADE)
+    cart_user = models.ForeignKey(User, related_name='cart_user', null=0 ,on_delete=models.CASCADE)
     products = models.ManyToManyField(Products, default=[])
     total = models.IntegerField(default=0)
     submitted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return f"{self.user}'s Cart"
+        return f"{self.cart_user.username}'s Cart"
 
 # class CartProduct(models.Model):
 #     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
