@@ -14,34 +14,36 @@ User = get_user_model()
 # GET_ALL *DONE*
 @api_view (['GET'])
 @permission_classes([AllowAny])
-def get_all_students(request):
+def students_list(request):
     students = User.objects.filter(is_student=True)
     serializer = RegistrationSerializer(students, many=True)
     return Response(serializer.data)
+# ///
+#--IN PROGRESS:
 # STUDENTS BY ID ///
 @api_view (['GET','PUT','DELETE'])
 @permission_classes([IsAuthenticated])
-def students_by_id(request, user_id):
-    students = User.objects.filter(is_student=True)
-    user_id = students.get(user_id=user_id)
-    serializer = RegistrationSerializer(students, data=request.data)
+def students_by_id(request, pk):
+    students = User.objects.filter(is_student=True, pk=pk)
+    # serializer = RegistrationSerializer(students, data=request.data)
 # RETRIEVE
     if request.method == 'GET':
-        # students = students.filter(user_id=user_id)
-        # serializer = RegistrationSerializer(students, data=request.data)
-        if serializer.is_valid():
-            return Response (serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = RegistrationSerializer(students)
+        return Response (serializer.data)
+    # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # if serializer.is_valid():
+        #     students.get(serializer.data)
 # UPDATE
     elif request.method == 'PUT':
+        serializer = StudentSerializer(students, data=request.data)
         if serializer.is_valid(raise_exception=True):
-            serializer.save(data=request.data)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 # DELETE
     elif request.method == 'DELETE':
         students.delete()
-        return Response(serializer.data, status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 # CREATE /// *Not Applicable- Read Only* ///
 # @api_view (['POST'])
 # @permission_classes([IsAuthenticated])
@@ -58,14 +60,14 @@ def students_by_id(request, user_id):
 # TEACHERS INFO /// *DONE*
 @api_view (['GET'])
 @permission_classes([AllowAny])
-def get_all_teachers(request):
+def teachers_detail(request):
     teachers = User.objects.filter(is_teacher=True)
     serializer = RegistrationSerializer(teachers, many=True)
     return Response(serializer.data)
 # USERS INFO /// *DONE*
 @api_view (['GET'])
 @permission_classes([AllowAny])
-def get_all_users(request):
+def users_detail(request):
     users = User.objects.all()
     serializer = RegistrationSerializer(users, many=True)
     return Response(serializer.data)

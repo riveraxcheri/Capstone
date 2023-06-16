@@ -19,7 +19,7 @@ class Cart(models.Model):
     submitted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return f"{self.cart_user.username}'s Cart"
+        return f"{self.cart_user}'s Cart"
 
 
 

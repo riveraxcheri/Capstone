@@ -8,6 +8,7 @@ from .serializers import ProductsSerializer
 from .models import Cart
 from .serializers import CartSerializer
 from django.shortcuts import get_object_or_404
+from authentication.models import User
 
 # Create your views here.
 # PRODUCTS CRUD /// *DONE*
@@ -44,35 +45,34 @@ def update_products(request, pk):
 # /// PRODUCTS END ///    
     
 # CART Views ///
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def user_cart(request):
     if request.method == 'POST':
+        Cart.objects.create()
         serializer = CartSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(data=request.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid (raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view (['GET','PUT','DELETE'])
 @permission_classes([IsAuthenticated])
-def update_cart(request, cart_user_id):
-    cart_user_id = Cart.objects.get(cart_user_id.user_id)
-    cart = get_object_or_404(Cart, cart_user_id)
-    serializer = CartSerializer(cart, data=request.data)
+def update_cart(request, pk):
+    pk = User.objects.get(pk)
+    cart = get_object_or_404(Cart, pk=pk)
     if request.method == 'PUT':
-        if serializer.is_valid(raise_exception=True):
-            # cart.update()
-            serializer.save(data=request.data)
-            return Response(serializer.data)
+        serializer = CartSerializer(cart, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
     elif request.method == 'DELETE':
         cart.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     elif request.method == 'GET':
-        if cart == True:
-            print (f"{request.cart_user}, {request.data}")
-            return Response(serializer.data)
-        return Response(f"No Cart in Progress for {request.cart_user.username}",status=status.HTTP_404_NOT_FOUND)
+        serializer = CartSerializer(cart)
+        return Response(serializer.data)
+    return Response(f"No Cart in Progress",status=status.HTTP_404_NOT_FOUND)
     
     # //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 # REFERENCES
