@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import User, Student
+from authentication.models import Student
 
 # Create your models here.
 class Products(models.Model):
@@ -11,16 +11,25 @@ class Products(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name}" 
+    
+
 
 class Cart(models.Model):
     cart_user = models.OneToOneField(Student, null=0 ,on_delete=models.CASCADE)
-    products = models.ManyToManyField(Products, default=[])
-    total = models.IntegerField(default=0)
+    cart_products = models.ManyToManyField(Products, default=[])
     submitted = models.BooleanField(default=False)
+
 
     def __str__(self) -> str:
         return f"{self.cart_user}'s Cart"
 
+    # total = models.IntegerField(default=0)
+    # def get_total(self):
+    #     return f"{self.products.cost}" * len(f"{self.products}")
+
+    # def save(self, *args, **kwargs):
+    #     self.total = self.get_total()
+    #     super().save(*args, **kwargs)
 
 
 

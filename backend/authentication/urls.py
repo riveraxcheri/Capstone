@@ -8,7 +8,8 @@ urlpatterns = [
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='register'),
     path('students/', students_list),
-    path('students/<int:pk>/', students_by_id),
-    path('teachers/', teachers_detail),
+    path('students/<str:username>/', students_by_username),
+    path('teachers/', teachers_list),
+    path('teachers/<str:username>/', teachers_detail),
     path('users/', users_detail),
 ]

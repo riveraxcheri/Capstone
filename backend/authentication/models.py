@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 
+
 class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_teacher = models.BooleanField(default=False)
@@ -10,6 +11,7 @@ class User(AbstractUser):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     points = models.IntegerField(default=0)
+    # cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
     # qr_code = models.ImageField()
     # transactions/cart?
 

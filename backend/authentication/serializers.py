@@ -3,11 +3,15 @@ from rest_framework.validators import UniqueValidator
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.password_validation import validate_password
 from .models import User, Student, Teacher
+import django.contrib.auth.models
+import django.contrib.auth.validators
+from django.contrib.auth import get_user_model
+
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['user_id', 'points']
+        fields = ['user_id', 'cart_id', 'points']
         depth = 1
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -38,6 +42,18 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     password = serializers.CharField(
         write_only=True, required=True, validators=[validate_password])
+    
+#     username = serializers.CharField(
+#         required=True, validators=[django.contrib.auth.validators.
+#                                    UnicodeUsernameValidator()])
+# #^^^^^ATTEMPT TO FIX ATTRIBUTE ERROR
+# #('username', models.CharField(error_messages=
+# # {'unique': 'A user with that username already exists.'}, 
+# # help_text='Required. 150 characters or fewer. 
+# # Letters, digits and @/./+/-/_ only.', 
+# # max_length=150, unique=True, 
+# # validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], 
+# # verbose_name='username')),
 
     teacher = TeacherSerializer(read_only=True)
     student = StudentSerializer(read_only=True)

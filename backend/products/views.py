@@ -47,7 +47,7 @@ def update_products(request, pk):
 # CART Views ///
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def user_cart(request):
+def open_cart(request):
     if request.method == 'POST':
         Cart.objects.create()
         serializer = CartSerializer(data=request.data)

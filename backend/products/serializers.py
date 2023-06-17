@@ -1,9 +1,9 @@
 from rest_framework import serializers
 from .models import Products, Cart
-# from authentication.serializers import RegistrationSerializer
+from authentication.serializers import RegistrationSerializer
 from django.contrib.auth import get_user_model
 from authentication.serializers import StudentSerializer
-User = get_user_model()
+
 
 class ProductsSerializer(serializers.ModelSerializer):
     class Meta:
