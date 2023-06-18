@@ -8,11 +8,11 @@ class Products(models.Model):
     category = models.CharField(max_length=100)
     inventory = models.IntegerField(default=1)
     is_available = models.BooleanField('availability status',default=True)
+    # in_cart = models.BooleanField(models.ManyToManyRel_meta.get_fields('products_cart.user_id'))
 
     def __str__(self) -> str:
         return f"{self.name}" 
     
-
 
 class Cart(models.Model):
     user = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -23,6 +23,15 @@ class Cart(models.Model):
     def __str__(self) -> str:
         return f"{self.user.id.username}'s Cart"
 
+# /// New Error /// 6.18:
+# Provide a many-to-many relation by using 
+# an intermediary model that holds two ForeignKey fields 
+# pointed at the two sides of the relation.
+# Unless a through model was provided, 
+# ManyToManyField will use the create_many_to_many_intermediary_model 
+# factory to automatically generate the intermediary model.
+
+#brainstorm of cart total
     # total = models.IntegerField(default=0)
     # def get_total(self):
     #     return f"{self.products.cost}" * len(f"{self.products}")
@@ -32,7 +41,7 @@ class Cart(models.Model):
     #     super().save(*args, **kwargs)
 
 
-
+# /// My old intermediary model before I decided to go with just the 2:
 # class CartProduct(models.Model):
 #     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 #     product = models.ForeignKey(Products, on_delete=models.CASCADE)
