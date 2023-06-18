@@ -11,13 +11,10 @@ class User(AbstractUser):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     points = models.IntegerField(default=0)
-    # cart = models.OneToOneField(Cart, on_delete=models.CASCADE)
-    # qr_code = models.ImageField()
-    # transactions/cart?
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    # forms? create, retrieve, update, delete - students, products
+
 
     '''
     This is a custom version of the built in User class

@@ -15,13 +15,13 @@ class Products(models.Model):
 
 
 class Cart(models.Model):
-    cart_user = models.OneToOneField(Student, null=0 ,on_delete=models.CASCADE)
-    cart_products = models.ManyToManyField(Products, default=[])
+    user = models.ForeignKey(Student, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Products, default=[])
     submitted = models.BooleanField(default=False)
 
 
     def __str__(self) -> str:
-        return f"{self.cart_user}'s Cart"
+        return f"{self.user.id.username}'s Cart"
 
     # total = models.IntegerField(default=0)
     # def get_total(self):

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Products, Cart
-from authentication.serializers import RegistrationSerializer
-from django.contrib.auth import get_user_model
+# from authentication.serializers import RegistrationSerializer
+# from django.contrib.auth import get_user_model
 from authentication.serializers import StudentSerializer
 
 
@@ -12,10 +12,10 @@ class ProductsSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     products = ProductsSerializer(many=True, read_only=True)
-    cart_user = StudentSerializer(many=False, read_only=True)
+    user = StudentSerializer(many=False, read_only=True)
     class Meta:
         model = Cart
-        fields = ['id', 'cart_user', 'products', 'total', 'submitted']
+        fields = ['id', 'submitted', 'user_id', 'products']
         depth = 1
 
     

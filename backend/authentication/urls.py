@@ -4,12 +4,16 @@ from .views import RegisterView, MyTokenObtainPairView
 from .student.views import *
 
 urlpatterns = [
+    # auth user info paths
     path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='register'),
+    # student info paths
     path('students/', students_list),
-    path('students/<str:username>/', students_by_username),
+    path('students/<int:pk>/', students_by_id),
+    # teacher info paths
     path('teachers/', teachers_list),
-    path('teachers/<str:username>/', teachers_detail),
+    path('teachers/<int:pk>/', teachers_detail),
+    # users info path
     path('users/', users_detail),
 ]

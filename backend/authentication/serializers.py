@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['user_id', 'cart_id', 'points']
+        fields = ['user_id', 'points']
         depth = 1
 
 class TeacherSerializer(serializers.ModelSerializer):

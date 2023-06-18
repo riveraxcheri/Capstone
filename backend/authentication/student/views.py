@@ -11,7 +11,7 @@ from ..serializers import RegistrationSerializer
 User = get_user_model()
 
 # STUDENTS INFO ///
-# GET_ALL *DONE*
+# GET_ALL *DONE* path= 'students/'
 @api_view (['GET'])
 @permission_classes([AllowAny])
 def students_list(request):
@@ -20,11 +20,11 @@ def students_list(request):
     return Response(serializer.data)
 # ///
 #--IN PROGRESS:
-# STUDENTS BY ID ///
-@api_view (['GET','POST','PUT','DELETE'])
+# STUDENTS BY ID /// path= 'students/<int:pk>/'
+@api_view (['GET','PUT','DELETE'])
 @permission_classes([IsAuthenticated])
-def students_by_username(request, username):
-    students = User.objects.filter(is_student=True, username=username)
+def students_by_id(request, pk):
+    students = User.objects.filter(is_student=True, pk=pk)
 # RETRIEVE
     if request.method == 'GET':
         serializer = RegistrationSerializer(students)
@@ -35,6 +35,7 @@ def students_by_username(request, username):
             serializer = RegistrationSerializer(students, data=request.data)
             serializer.is_valid(raise_exception=True)
             save_user_profile(serializer.data)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         elif User.objects.filter(is_teacher=True):
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -63,7 +64,8 @@ def students_by_username(request, username):
 #             return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# TEACHERS INFO /// *DONE*
+# TEACHERS INFO /// *DONE* 
+# ALL_ TEACHERS_LIST path= 'teachers/'
 @api_view (['GET'])
 @permission_classes([AllowAny])
 def teachers_list(request):
@@ -71,12 +73,12 @@ def teachers_list(request):
     if request.method == 'GET':
         serializer = RegistrationSerializer(teachers, many=True)
         return Response(serializer.data)
-
+    
+# TEACHER DETAIL path= 'teachers/<int:pk>/'
 @api_view (['GET','PUT'])
 @permission_classes([IsAuthenticated])
-def teachers_detail(request, username):
-
-    teachers = User.objects.filter(is_teacher=True, username=username)
+def teachers_detail(request, pk):
+    teachers = User.objects.filter(is_teacher=True, pk=pk)
     if request.method == 'GET':
         serializer = RegistrationSerializer(teachers)
         return Response(serializer.data)
@@ -85,12 +87,13 @@ def teachers_detail(request, username):
             serializer = RegistrationSerializer(teachers, data=request.data)
             serializer.is_valid(raise_exception=True)
             save_user_profile(serializer)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
         elif User(is_student=True):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-# USERS INFO /// *DONE*
+# USERS INFO /// *DONE* path= 'users/'
 @api_view (['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def users_detail(request):
@@ -105,6 +108,7 @@ def users_detail(request):
             create_user_profile()
             serializer.save(data=request.data)
             save_user_profile()
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
