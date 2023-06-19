@@ -12,8 +12,13 @@ const Navbar = () => {
       <ul>
         <li className="brand">
           <Link to="/" style={{ textDecoration: "none", color: "white" }}>
-            <b>React/Django JWT</b>
+            <b>Academy PBIS Store</b>
           </Link>
+        </li>
+        <li>
+          { (
+            <button onClick={() => navigate("/home")}>Home</button>
+          )}
         </li>
         <li>
           {user ? (
