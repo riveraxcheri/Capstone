@@ -26,9 +26,9 @@ const ProductsForm = (props) => {
 
     return ( 
         <div>
-            <h1>Products Page</h1>
+            <h1>Products Form</h1>
             <p>
-                This is where Teachers/Admin can edit Products:
+                This is where Teachers/Admin can add new Products:
             </p>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <div>

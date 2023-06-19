@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import ProductsTable from "../../components/ProductsTable/ProductsTable";
 
 import axios from "axios";
 
@@ -29,14 +30,15 @@ const StorePage = () => {
   return (
     <div className="container">
       <h1>Welcome to the Academy PBIS Store, {user.username}!</h1>
-      {products &&
-        products.map((product) => (
-          <p key={product.id}>
-            {product.name} {product.cost} {product.category}
-          </p>
-        ))}
+
     </div>
   );
 };
 
 export default StorePage;
+// {products &&
+//   products.map((product) => (
+//     <p key={product.id}>
+//       {product.name} {product.cost} {product.category}
+//     </p>
+//   ))}

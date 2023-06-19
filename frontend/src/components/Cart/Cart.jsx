@@ -16,6 +16,7 @@ const Cart = ({getCartProducts}) => {
     return ( 
         <div>
             <h1>Cart</h1>
+            <p>This is where students cart items will generate</p>
         </div>
      );
 }
