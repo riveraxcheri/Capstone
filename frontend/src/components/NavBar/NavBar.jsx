@@ -21,6 +21,16 @@ const Navbar = () => {
           )}
         </li>
         <li>
+          { (
+            <button onClick={() => navigate("/store")}>Store</button>
+          )}
+        </li>
+        <li>
+          { (
+            <button onClick={() => navigate("/cart")}>Cart</button>
+          )}
+        </li>
+        <li>
           {user ? (
             <button onClick={logoutUser}>Logout</button>
           ) : (

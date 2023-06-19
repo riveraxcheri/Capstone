@@ -11,6 +11,7 @@ import StorePage from "./pages/StorePage/StorePage";
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
+import Cart from "./components/Cart/Cart";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -29,6 +30,7 @@ function App() {
           }
         />
         <Route path="/store" element={<StorePage />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
