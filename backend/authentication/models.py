@@ -12,9 +12,14 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     points = models.IntegerField(default=0)
 
+    def __str__(self) -> str:
+        return f"{self.user}" 
+
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-
+    
+    def __str__(self) -> str:
+        return f"{self.user}"
 
     '''
     This is a custom version of the built in User class

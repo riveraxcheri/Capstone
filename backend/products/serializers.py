@@ -12,10 +12,10 @@ class ProductsSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     products = ProductsSerializer(many=True, read_only=True)
-    user_id = StudentSerializer(many=False, read_only=True)
+    user = StudentSerializer(many=False, read_only=True)
     class Meta:
         model = Cart
-        fields = ['id', 'submitted', 'products', 'user_id']
+        fields = ['id', 'submitted', 'products', 'user']
         depth = 1
 
     
