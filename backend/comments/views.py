@@ -8,12 +8,17 @@ from .models import Comments
 from .serializers import CommentsSerializer
 from django.shortcuts import get_object_or_404
 
+# /// Need to Address:
+#            ^
+# TypeError: 'int' object is not iterable
+# [19/Jun/2023 07:03:18] "GET /api/comments/ HTTP/1.1" 500 131041
+# ///
 
    # COMMENTS: #GET , #POST , #DELETE
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated]) 
 def user_comments_detail(request, pk):
-    comments = get_object_or_404(Comments, pk=pk)
+    comments = Comments.objects.filter(pk=pk)
     if request.method == 'GET':
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
@@ -27,24 +32,38 @@ def user_comments_detail(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
-# GET by Teacher User
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def comm_by_tch_id(request, pk):
-    request.method == 'GET'
-    comments = get_object_or_404(Comments, pk=pk)
-    serializer = CommentsSerializer(comments, many=True)
-    return Response(serializer.data)
+def comments_list(request):
+    if request.method == 'GET':
+        comments = Comments.objects.all()
+        serializer = CommentsSerializer(comments, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = CommentsSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # GET ALL for my purposes:
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def all_comments(request):
-    request.method == 'GET'
-    comments=Comments.objects.all()
-    serializer = CommentsSerializer(comments, many=True)
-    return Response(serializer.data)
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def all_comments(request):
+#     request.method == 'GET'
+#     comments=Comments.objects.all()
+#     serializer = CommentsSerializer(comments, many=True)
+#     return Response(serializer.data)
+
+# GET by Teacher User
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def comm_by_tch_id(request, pk):
+#     request.method == 'GET'
+#     comments = get_object_or_404(Comments, pk=pk)
+#     serializer = CommentsSerializer(comments, many=True)
+#     return Response(serializer.data)
+
 
 # GET by Student User Id
 # @api_view(['GET'])

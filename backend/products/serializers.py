@@ -12,22 +12,18 @@ class ProductsSerializer(serializers.ModelSerializer):
 
 class CartSerializer(serializers.ModelSerializer):
     products = ProductsSerializer(many=True, read_only=True)
-    user = StudentSerializer(many=False, read_only=True)
+    student = StudentSerializer(read_only=True)
+    # user_id = StudentSerializer(many=False, read_only=True)
     class Meta:
         model = Cart
-        fields = ['id', 'submitted', 'products', 'user']
+        fields = ['id', 'is_submitted', 'products', 'student']
         depth = 1
 
-    
-    # def create(self, validated_data):
-    #     return Cart.objects.create(**validated_data)
-    # def update(self, instance, validated_data):
-    #     return super().update(instance, validated_data)
-    
-    
-# class CartProductSerializer(serializers.ModelSerializer):
-#     cart = CartSerializer(many=True, read_only=True)
-#     product = ProductsSerializer(many=True, read_only=True)
-#     class Meta:
-#         model = CartProduct
-#         fields = ['id', 'cart', 'product', 'quantity']
+    def create(self):
+        cart = Cart.objects.create(
+            student = ['student'],
+            products = ['products'],
+            is_submitted = ['is_submitted']
+    )
+        cart.save()
+        return cart

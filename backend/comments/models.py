@@ -4,7 +4,11 @@ from django.utils import timezone
 import datetime
 
 
-
+    # ////
+    # Need to Address:
+    # 'int' not iterable
+    # Maybe need to select either Student or Teacher, Not just User
+    # ////
 
 class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
