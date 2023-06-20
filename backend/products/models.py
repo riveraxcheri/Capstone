@@ -15,8 +15,8 @@ class Products(models.Model):
     
 
 class Cart(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Products, default=[])
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
+    products = models.ManyToManyField(Products, default=[],)
     is_submitted = models.BooleanField(default=False,)
 #   # Need to change permissions so only Teachers can Submit
 

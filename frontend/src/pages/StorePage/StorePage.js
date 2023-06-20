@@ -10,7 +10,8 @@ const StorePage = () => {
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
-  const [products, setProducts] = useState([]);
+  const [items, setItems] = useState([]);
+
 
   useEffect(() => {
     const fetchStore = async () => {
@@ -20,17 +21,38 @@ const StorePage = () => {
             Authorization: "Bearer " + token,
           },
         });
-        setProducts(response.data);
+        setItems(response.data);
       } catch (error) {
         console.log(error.response.data);
       }
     };
     fetchStore();
   }, [token]);
+//GET
+async function getAllProducts() {
+    const response = await axios.get("http://127.0.0.1:8000/api/store/");
+    console.log(response.data);
+    setItems(response.data)
+}
+//POST
+async function addProducts(newProduct) {
+    const response = await axios.post(
+        "http://127.0.0.1:8000/api/store/",
+        newProduct
+    );
+    if (response.status === 204) {
+        console.log("New Product Added!");
+        getAllProducts();
+    }
+}
+
+
   return (
     <div className="container">
       <h1>Welcome to the Academy PBIS Store, {user.username}!</h1>
-
+        <p>This will eventually be where all products will be displayed:</p>
+        <ProductsTable items= {items} />
+        <button onCLick={()=> getAllProducts()}>Get Products</button>
     </div>
   );
 };

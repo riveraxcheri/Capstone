@@ -10,6 +10,8 @@ const RegisterPage = () => {
     password: "",
     firstName: "",
     lastName: "",
+    is_student: false,
+    is_teacher: false
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -61,6 +63,24 @@ const RegisterPage = () => {
             type="text"
             name="password"
             value={formData.password}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+           Student User Account
+          <input
+            type="checkbox"
+            name="is_student"
+            value={formData.is_student}
+            onChange={handleInputChange}
+          />
+        </label>
+        <label>
+           Teacher User Account
+          <input
+            type="checkbox"
+            name="is_teacher"
+            value={formData.is_teacher}
             onChange={handleInputChange}
           />
         </label>

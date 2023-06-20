@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import User
+from authentication.models import Teacher, Student, User
 from django.utils import timezone
 import datetime
 
@@ -11,9 +11,10 @@ import datetime
     # ////
 
 class Comments(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    receiver = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
     comm_text = models.CharField(max_length=300, verbose_name='comment text')
-    pub_date= models.DateTimeField("date published")
+    pub_date= models.DateTimeField(("date posted"), default=timezone.now)
 
-    def __str__(self):
-        return self.comm_text
+    # def __str__(self):
+    #     return self.comm_text

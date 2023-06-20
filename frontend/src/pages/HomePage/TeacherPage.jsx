@@ -1,7 +1,7 @@
 import useAuth from "../../hooks/useAuth";
-import ProductsForm from "../ProductsForm/ProductsForm";
+import ProductsForm from "../../components/ProductsForm/ProductsForm";
 
-const TeacherPage = () => {
+const TeacherPage = ({addItems}, {items}) => {
     const [user, token] = useAuth();
     return ( 
         <div>
@@ -11,7 +11,10 @@ const TeacherPage = () => {
             <button>Get Student Cart</button>
             <button>Get Students Info</button>
             <button>Get Product Info</button>
-            <ProductsForm/>
+            <button onClick=
+            {<ProductsForm addItems={addItems} items={items}/>}>
+                Add New Product
+            </button>
             
         </div> );
 }
