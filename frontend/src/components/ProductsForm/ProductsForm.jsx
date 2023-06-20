@@ -13,22 +13,7 @@ const ProductsForm = ({addProducts}, {getAllProducts}) => {
         newProduct,
         setNewProduct
     );
-    // const availableToggle = () => {setIsAvailable(!isAvailable);};
-
-    // function handleSubmit(event) {
-    //     event.prevenrDefault();
-    //     const formValues = {
-    //         name: {itemName},
-    //         cost: {itemCost},
-    //         category: {itemCategory},
-    //         inventory: {itemInventory},
-    //         isAvailable: {Boolean},
-    //     };
-    //     console.log(formValues);
-    //     addProducts(formValues).then(response =>getAllProducts());
-    // }
     
-
     return ( 
         <div className='product_container'>
             <h1>Products Form</h1>
@@ -81,6 +66,20 @@ const ProductsForm = ({addProducts}, {getAllProducts}) => {
             </form>
         </div>
      );
-}
- 
-export default ProductsForm;
+    }
+    
+    export default ProductsForm;
+    // const availableToggle = () => {setIsAvailable(!isAvailable);};
+
+    // function handleSubmit(event) {
+    //     event.prevenrDefault();
+    //     const formValues = {
+    //         name: {itemName},
+    //         cost: {itemCost},
+    //         category: {itemCategory},
+    //         inventory: {itemInventory},
+    //         isAvailable: {Boolean},
+    //     };
+    //     console.log(formValues);
+    //     addProducts(formValues).then(response =>getAllProducts());
+    // }
