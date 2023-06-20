@@ -16,6 +16,8 @@ import Footer from "./components/Footer/Footer";
 import Cart from "./components/Cart/Cart";
 import SearchBar from "./components/SearchBar/SearchBar";
 import TeacherPage from "./pages/HomePage/TeacherPage";
+import StudentPage from "./pages/HomePage/StudentPage";
+
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -48,6 +50,14 @@ function App() {
           element={
             <PrivateRoute>
               <TeacherPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRoute>
+              <Cart />
             </PrivateRoute>
           }
         />

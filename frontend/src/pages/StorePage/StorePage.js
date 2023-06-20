@@ -51,8 +51,8 @@ async function addProducts(newProduct) {
     <div className="container">
       <h1>Welcome to the Academy PBIS Store, {user.username}!</h1>
         <p>This will eventually be where all products will be displayed:</p>
-        <ProductsTable items= {items} />
-        <button onCLick={()=> getAllProducts()}>Get Products</button>
+        
+        
     </div>
   );
 };
