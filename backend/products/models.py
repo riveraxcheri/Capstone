@@ -3,9 +3,9 @@ from authentication.models import Student
 
 # Create your models here.
 class Products(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100, verbose_name="Product")
     cost = models.IntegerField(default=10)
-    category = models.CharField(max_length=100)
+    category = models.CharField(max_length=100, verbose_name="Category")
     inventory = models.IntegerField(default=1)
     is_available = models.BooleanField('availability status',default=True)
     # in_cart = models.BooleanField(models.ManyToManyRel_meta.get_fields('products_cart.user_id'))
@@ -15,8 +15,8 @@ class Products(models.Model):
     
 
 class Cart(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True)
-    products = models.ManyToManyField(Products, default=[],)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="student user" )
+    products = models.ManyToManyField(Products, default=["empty cart"],)
     is_submitted = models.BooleanField(default=False,)
 #   # Need to change permissions so only Teachers can Submit
 

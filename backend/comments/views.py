@@ -21,27 +21,27 @@ class CommentsViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated)
     serializer_class = CommentsSerializer
 
-# @api_view(['GET'])
-# @permission_classes([AllowAny])
-# def get_by_user(request, user):
-#     text = request.query_params.get('t')
-#     comments = Comments.objects.all()
-#     if text:
-#         comments = comments.filter(text=text)
-#         serializer = CommentsSerializer(comments, many=True)
-#         return Response(serializer.data)
-#     comments = Comments.objects.get(user=user.id)
-#     serializer = CommentsSerializer(comments, many=True)
-#     return Response(serializer.data)
-
- # GET
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def comments_list(request, queryset):
-    queryset = Comments.objects.all()
-    request.method == 'GET'
-    serializer = CommentsSerializer(queryset, many=True)
+def get_by_user(request, user):
+    text = request.query_params.get('t')
+    comments = Comments.objects.all()
+    if text:
+        comments = comments.filter(text=text)
+        serializer = CommentsSerializer(comments, many=True)
+        return Response(serializer.data)
+    comments = Comments.objects.get(user=user.id)
+    serializer = CommentsSerializer(comments, many=True)
     return Response(serializer.data)
+
+ # GET
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def comments_list(request, queryset):
+#     queryset = Comments.objects.all()
+#     request.method == 'GET'
+#     serializer = CommentsSerializer(queryset, many=True)
+#     return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -49,15 +49,17 @@ def get_all_comments(request):
     comments = Comments.objects.all()
     serializer = CommentsSerializer(comments, many=True)
     return Response(serializer.data)
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def user_post_comm(request):
     print(
-        'User', f"{request.user.id} {request.user.email} {request.user.username}"
+        'User:',
+        f"{request.user.id} {request.user.email} {request.user.username}"
     )
     if request.method == 'POST':
         serializer = CommentsSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -66,6 +68,13 @@ def user_post_comm(request):
     #     serializer = CommentsSerializer(comments, many=True)
     #     return Response(serializer.data)
 
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated]) 
+def delete_comm(request):
+    if request.method == 'DELETE':
+        Comments.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response(CommentsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 #POST
@@ -78,13 +87,6 @@ def user_post_comm(request):
 #     serializer.save()
 #     return Response(serializer.data, status=status.HTTP_201_CREATED)
    # COMMENTS: #DELETE
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated]) 
-def delete_comm(request):
-    if request.method == 'DELETE':
-        Comments.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    return Response(CommentsSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     # comments = Comments.objects.filter(pk=pk)
     # if request.method == 'GET':

@@ -10,17 +10,15 @@ from authentication.serializers import TeacherSerializer, StudentSerializer, Reg
     # ////
 class CommentsSerializer(serializers.ModelSerializer):
     user = RegistrationSerializer(many=False, read_only=True)
-    receiver = StudentSerializer(many=False, read_only=True)
 
     class Meta:
         model = Comments
-        fields = ['id', 'comm_text', 'pub_date','user','receiver']
+        fields = ['id', 'comm_text', 'pub_date','user']
         depth = 1
 
     def create(self):
         comment = Comments.objects.create(
             user = ['user'],
-            receiver = ['receiver'],
             comm_text = ['comm_text'],
             pub_date = ['pub_date']
         )

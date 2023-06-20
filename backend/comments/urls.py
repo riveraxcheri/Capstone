@@ -9,7 +9,7 @@ from comments import views
 urlpatterns = [
     path('delete/', views.delete_comm),
     path('post/', views.user_post_comm),
-    path('<int:user>/', views.comments_list),
+    path('<int:id>/', views.get_by_user), #Still working on it
     path('', views.get_all_comments),
     # path('teacher_user/<int:pk>/', views.comm_by_tch_id),
     # path('student_user/<int:pk>/', views.comm_by_stu_id),
