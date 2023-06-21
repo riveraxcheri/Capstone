@@ -40,7 +40,7 @@ function App() {
         <Route
           path="/student"
           element={
-            <PrivateRoute>
+            <PrivateRoute >
               <StudentPage />
             </PrivateRoute>
           }

@@ -8,7 +8,7 @@ class Products(models.Model):
     category = models.CharField(max_length=100, verbose_name="Category")
     inventory = models.IntegerField(default=1)
     is_available = models.BooleanField('availability status',default=True)
-    # in_cart = models.BooleanField(models.ManyToManyRel_meta.get_fields('products_cart.user_id'))
+
 
     def __str__(self) -> str:
         return f"{self.name}" 
