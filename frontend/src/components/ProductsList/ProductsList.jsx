@@ -9,7 +9,6 @@ const ProductsList = ({items}) => {
             <p> Cost: {items.cost} </p>
             <p> Categorsy: {items.category} </p>
             <p> Inventory: {items.inventory} </p>
-            <p> Is Available: {items.is_available} </p>
         </li>
      );
 }

@@ -16,5 +16,5 @@ class Comments(models.Model):
     # pub_date= models.DateTimeField(("date posted"), default=timezone.now)
     # posted=models.DateTimeField(auto_now_add=True)
 
-    # def __str__(self):
-    #     return self.comm_text
+    def __str__(self):
+        return f"From: {self.user.username}"

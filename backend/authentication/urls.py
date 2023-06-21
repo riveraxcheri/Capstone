@@ -8,13 +8,11 @@ urlpatterns = [
     path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('register/', RegisterView.as_view(), name='register'),
-    # student info paths
+    # staff access paths
+    path('users/', users_list),
     path('students/', students_list),
+    # student & staff access paths
     path('students/<int:pk>/', students_by_id),
     path('points/<int:pk>/', students_points),
-    # # teacher info paths
-    # path('teachers/', teachers_list),
-    # path('teachers/<int:pk>/', teachers_by_id),
-    # users info path
-    path('users/', users_list),
+
 ]

@@ -52,13 +52,6 @@ const ProductsForm = ({addProducts}, {getAllProducts}) => {
                     />
                 </div>
                 <div>
-                    <label>Availability:</label>
-                    <input type={Boolean}
-                    value={formData.isAvailable}
-                    onChange={handleInputChange}
-                    />
-                </div>
-                <div>
                     <button onClick={addProducts(setNewProduct).then(getAllProducts())} >
                         Add Product</button>
                 </div>

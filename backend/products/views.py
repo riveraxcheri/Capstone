@@ -64,10 +64,10 @@ def create_cart(request, user_id):
 @api_view(['PATCH']) 
 @permission_classes([IsAuthenticated])
 # add to cart
-def add_cart_products(request, product_pk, cart_pk):
+def add_cart_products(request, products_pk, cart_pk):
     request.method == 'PATCH'
     try:
-        product = Products.objects.get(pk=product_pk)
+        products = Products.objects.get(pk=products_pk)
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -76,7 +76,7 @@ def add_cart_products(request, product_pk, cart_pk):
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    cart.product.add(product)
+    cart.products.add(products)
     cart.save()
     serializer = CartSerializer(cart)
     return Response(serializer.data, status=status.HTTP_200_OK)
@@ -84,10 +84,10 @@ def add_cart_products(request, product_pk, cart_pk):
 @api_view(['PATCH']) 
 @permission_classes([IsAuthenticated])
 # remove from cart
-def remove_cart_products(request, product_pk, cart_pk):
+def remove_cart_products(request, products_pk, cart_pk):
     request.method == 'PATCH'
     try:
-        product = Products.objects.get(pk=product_pk)
+        products = Products.objects.get(pk=products_pk)
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
@@ -96,7 +96,7 @@ def remove_cart_products(request, product_pk, cart_pk):
     except:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    cart.product.delete(product)
+    cart.products.delete(products)
     cart.save()
     serializer = CartSerializer(cart)
     return Response(serializer.data, status=status.HTTP_200_OK)

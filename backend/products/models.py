@@ -3,11 +3,11 @@ from authentication.models import User
 
 # Create your models here.
 class Products(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Product")
-    cost = models.IntegerField(default=10)
-    category = models.CharField(max_length=100, verbose_name="Category")
-    inventory = models.IntegerField(default=1)
-    # is_available = models.BooleanField('availability status',default=True)
+    name = models.CharField(max_length=100)
+    cost = models.IntegerField(default=10, help_text="Represents the number of points needed to purchase the product")
+    category = models.CharField(max_length=100)
+    inventory = models.IntegerField(default=1, help_text="Represents the number of products in stock")
+
 
 
     def __str__(self) -> str:
@@ -17,21 +17,15 @@ class Products(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     products = models.ManyToManyField(Products)
-    # is_submitted = models.BooleanField(default=False)
-#   # Need to change permissions so only Teachers can Submit
+    is_active = models.BooleanField(default=True, help_text="Indicator for code to not open a new cart if one is already active")
+        #is_active will be changed to False onSubmit (frontend)
 
     def __str__(self) -> str:
         return f"{self.user.username}'s Cart"
     
 
 
-# /// New Error /// 6.18:
-# Provide a many-to-many relation by using 
-# an intermediary model that holds two ForeignKey fields 
-# pointed at the two sides of the relation.
-# Unless a through model was provided, 
-# ManyToManyField will use the create_many_to_many_intermediary_model 
-# factory to automatically generate the intermediary model.
+
 
 #brainstorm of cart total
     # total = models.IntegerField(default=0)
@@ -42,15 +36,6 @@ class Cart(models.Model):
     #     self.total = self.get_total()
     #     super().save(*args, **kwargs)
 
-
-# /// My old intermediary model before I decided to go with just the 2:
-# class CartProduct(models.Model):
-#     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-#     product = models.ForeignKey(Products, on_delete=models.CASCADE)
-#     quantity = models.IntegerField(default=1)
-
-#     def __str__(self) -> str:
-#         return f"{self.product}"
 #/////////////////////////////////////////////////////////////
 # def __str__(self):
 #     return f"{self.id}"
