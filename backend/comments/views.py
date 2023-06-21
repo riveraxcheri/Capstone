@@ -3,11 +3,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from authentication.models import User, Teacher, Student
+from authentication.models import User
 from .models import Comments
 from .serializers import CommentsSerializer
 from django.shortcuts import get_object_or_404
-from rest_framework.viewsets import ModelViewSet
+
 
 #GET Comments by user_id
 @api_view(['GET'])

@@ -20,12 +20,6 @@ const CommentForm = ({addComment, getComments}) => {
                     value={formData.userMsg}
                     onChange={handleInputChange}/>
                 </lable>
-                <label>
-                    Posted:
-                    <input type='date'
-                    value={formData.date}
-                    onChange={handleInputChange}/>
-                </label>
                 <button onClick={addComment(setUserMsg, setDate).then(getComments())}>
                     Post Message
                 </button>

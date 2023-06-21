@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
 from ..serializers import RegistrationSerializer, StudentSerializer
-from authentication.models import User, Teacher, Student
+from authentication.models import User, Student
 from django.shortcuts import get_object_or_404
 User = get_user_model()
 
@@ -46,34 +46,32 @@ def students_points(request, pk):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
 
-# TEACHERS INFO /// *DONE* 
-# ALL_ TEACHERS_LIST path= 'teachers/'
-@api_view (['GET'])
-@permission_classes([AllowAny])
-def teachers_list(request):
-    teachers = User.objects.filter(is_teacher=True)
-    if request.method == 'GET':
-        serializer = RegistrationSerializer(teachers, many=True)
-        return Response(serializer.data)
-    
-# TEACHER DETAIL path= 'teachers/<int:pk>/'
-@api_view (['GET'])
-@permission_classes([IsAuthenticated])
-def teachers_by_id(request, pk):
-    user = User.objects.filter(is_teacher=True)
-    user = get_object_or_404(user, pk=pk)
-    serializer = RegistrationSerializer(user)
-    if request.method == 'GET': # DONE
-        serializer = RegistrationSerializer(user)
-        return Response(serializer.data)
-
-
 # USERS INFO /// *DONE* path= 'users/'
 @api_view (['GET'])
 @permission_classes([IsAuthenticated])
-def users_detail(request):
+def users_list(request):
     users = User.objects.all()
     request.method == 'GET'
     serializer = RegistrationSerializer(users, many=True)
     return Response(serializer.data)
 
+# TEACHERS INFO /// *DONE* 
+# ALL_ TEACHERS_LIST path= 'teachers/'
+# @api_view (['GET'])
+# @permission_classes([AllowAny])
+# def teachers_list(request):
+#     teachers = User.objects.filter(is_teacher=True)
+#     if request.method == 'GET':
+#         serializer = RegistrationSerializer(teachers, many=True)
+#         return Response(serializer.data)
+    
+# # TEACHER DETAIL path= 'teachers/<int:pk>/'
+# @api_view (['GET'])
+# @permission_classes([IsAuthenticated])
+# def teachers_by_id(request, pk):
+#     user = User.objects.filter(is_teacher=True)
+#     user = get_object_or_404(user, pk=pk)
+#     serializer = RegistrationSerializer(user)
+#     if request.method == 'GET': # DONE
+#         serializer = RegistrationSerializer(user)
+#         return Response(serializer.data)

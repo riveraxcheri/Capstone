@@ -7,7 +7,7 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
-mysql-connector-python = "*"
+mysql-connector-python = "==8.0.26"
 django-cors-headers = "*"
 tzdata = "*"
 

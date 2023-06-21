@@ -12,9 +12,9 @@ urlpatterns = [
     path('students/', students_list),
     path('students/<int:pk>/', students_by_id),
     path('points/<int:pk>/', students_points),
-    # teacher info paths
-    path('teachers/', teachers_list),
-    path('teachers/<int:pk>/', teachers_by_id),
+    # # teacher info paths
+    # path('teachers/', teachers_list),
+    # path('teachers/<int:pk>/', teachers_by_id),
     # users info path
-    path('users/', users_detail),
+    path('users/', users_list),
 ]

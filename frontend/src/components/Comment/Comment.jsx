@@ -6,7 +6,6 @@ const Comment = ({comment}) => {
         <li className='comment_list'>
             <p>{comment.user.username}</p>
             <p>{comment && comment?.comm_text}</p>
-            <p>{comment.pub_date}</p>
         </li>
      );
 }

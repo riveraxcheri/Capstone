@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Comments
-from authentication.serializers import TeacherSerializer, StudentSerializer, RegistrationSerializer
+from authentication.serializers import RegistrationSerializer
 
 
 class CommentsSerializer(serializers.ModelSerializer):

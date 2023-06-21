@@ -8,7 +8,7 @@ from .serializers import ProductsSerializer
 from .models import Cart
 from .serializers import CartSerializer
 from django.shortcuts import get_object_or_404
-from authentication.models import User, Teacher, Student
+from authentication.models import Student
 from django.contrib.auth import get_user_model
 User = get_user_model()
 

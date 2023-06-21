@@ -14,7 +14,7 @@ class CartSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cart
-        fields = ['id','student_id','is_submitted','products']
+        fields = ['id','products','user']
         depth = 1
 
     # def create(self):

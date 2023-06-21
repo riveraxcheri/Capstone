@@ -11,7 +11,6 @@ const RegisterPage = () => {
     firstName: "",
     lastName: "",
     is_student: false,
-    is_teacher: false
   };
   const [formData, handleInputChange, handleSubmit] = useCustomForm(
     defaultValues,
@@ -72,15 +71,6 @@ const RegisterPage = () => {
             type="checkbox"
             name="is_student"
             value={formData.is_student}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-           Teacher User Account
-          <input
-            type="checkbox"
-            name="is_teacher"
-            value={formData.is_teacher}
             onChange={handleInputChange}
           />
         </label>

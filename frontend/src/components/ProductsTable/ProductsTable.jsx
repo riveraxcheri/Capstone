@@ -16,8 +16,7 @@ const ProductsTable = ({items}) => {
                 item.name.includes(itemName) ||
                 item.cost.includes(itemCost) ||
                 item.category.includes(itemCategory) ||
-                item.inventory.includes(itemInventory) ||
-                item.is_available.includes(isAvailable)
+                item.inventory.includes(itemInventory)
 
             ))
             .map((item) => (

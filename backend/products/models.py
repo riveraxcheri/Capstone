@@ -1,5 +1,5 @@
 from django.db import models
-from authentication.models import Student
+from authentication.models import User
 
 # Create your models here.
 class Products(models.Model):
@@ -7,7 +7,7 @@ class Products(models.Model):
     cost = models.IntegerField(default=10)
     category = models.CharField(max_length=100, verbose_name="Category")
     inventory = models.IntegerField(default=1)
-    is_available = models.BooleanField('availability status',default=True)
+    # is_available = models.BooleanField('availability status',default=True)
 
 
     def __str__(self) -> str:
@@ -15,13 +15,13 @@ class Products(models.Model):
     
 
 class Cart(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="student user" )
-    products = models.ManyToManyField(Products, default=["empty cart"],)
-    is_submitted = models.BooleanField(default=False,)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Products)
+    # is_submitted = models.BooleanField(default=False)
 #   # Need to change permissions so only Teachers can Submit
 
     def __str__(self) -> str:
-        return f"{self.student}"
+        return f"{self.user.username}'s Cart"
     
 
 
