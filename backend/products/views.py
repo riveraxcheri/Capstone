@@ -12,28 +12,38 @@ from authentication.models import Student
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-# Create your views here.
-# PRODUCTS CRUD ///
-# // Only need Get and Post requests/ Update & Delete through Admin Page
-#RETRIEVE *DONE*
+# PRODUCTS Views // [Only need Get and Post requests/ Update & Delete through Admin Page]
+
+# GET PRODUCTS [Done]
+# GET ALL 
 @api_view (['GET']) #for Store Page
 @permission_classes([AllowAny])
-# GET ALL 
 def get_all_products(request):
     request.method == 'GET'
     products = Products.objects.all()
     serializer = ProductsSerializer(products, many=True)
     return Response(serializer.data)
-# GET BY ID             ///should I make arg data instead of pk?**
+# GET BY ID             /// [should I make arg data instead of pk?**]
 @api_view (['GET']) #for Store Page to search for a product by id
 @permission_classes([AllowAny])
 def product_by_id(request, pk):
     request.method == 'GET'
     products = get_object_or_404(Products, pk=pk)
     serializer = ProductsSerializer(products, data=request.data)
+    serializer.is_valid()
+    return Response(serializer.data)
+# GET BY DATA [In Progress]
+@api_view (['GET']) #for Store Page to search for a product by data
+@permission_classes([AllowAny])
+def product_by_name(request, name):
+    request.method == 'GET'
+    products = Products.objects.filter(name=name)
+    serializer = ProductsSerializer(products, data=request.data)
+    serializer.is_valid()
     return Response(serializer.data)
 
-# CREATE PRODUCTS
+
+# CREATE PRODUCTS [Done]
 # POST 
 @api_view(['POST']) #for staff to add product inventory
 @permission_classes([IsAuthenticated])
@@ -46,25 +56,40 @@ def create_products(request):
 
 # /// PRODUCTS END ///    
     
-# CART Views ///
-@api_view(['POST']) #for Students to start a Shopping Cart
+# CART Views /// [In Progress]
+# GET CART [Done]
+# GET BY ID
+@api_view (['GET']) #To pull cart by cart id 
+@permission_classes([AllowAny])
+def cart_view(request,pk):
+    request.method == 'GET'
+    try:
+        cart = Cart.objects.get(pk=pk)
+    except:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = CartSerializer(cart)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+# POST [In Progress]
+@api_view(['POST']) #for Students to start a Shopping Cart // Maybe just add as part of PATCH-ADD
 @permission_classes([AllowAny])
 def create_cart(request, user_id):
     request.method == 'POST'
     try:
-        student = Student.objects.get(user_id=user_id)
+        cart_user = get_object_or_404(Cart, user_id=user_id)
     except:
         return Response(status=status.HTTP_404_NOT_FOUND) 
-    serializer = CartSerializer(student, data=request.data)
+    serializer = CartSerializer(cart_user, data=request.data)
     if serializer.is_valid(raise_exception=True):
+        cart_user.save()
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# //
+# //PATCH
+# ADD TO CART [In Progress]
 @api_view(['PATCH']) 
 @permission_classes([IsAuthenticated])
-# add to cart
 def add_cart_products(request, products_pk, cart_pk):
     if request.method == 'PATCH':
         try:
@@ -84,11 +109,9 @@ def add_cart_products(request, products_pk, cart_pk):
             return Response(serializer.data, status=status.HTTP_200_OK)
         # return create_cart()??
 
- 
-
+# REMOVE FROM CART [In Progress]
 @api_view(['PATCH']) 
 @permission_classes([IsAuthenticated])
-# remove from cart
 def remove_cart_products(request, products_pk, cart_pk):
     request.method == 'PATCH'
     try:
@@ -106,17 +129,10 @@ def remove_cart_products(request, products_pk, cart_pk):
     serializer = CartSerializer(cart)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
-# IN PROGRESS //// GET CART
-@api_view (['GET']) #To pull cart by cart id 
-@permission_classes([AllowAny])
-def cart_view(request,pk):
-    request.method == 'GET'
-    try:
-        cart = Cart.objects.get(pk=pk)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = CartSerializer(cart)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+# UPDATE by submit: 
+# / cart: cart.is_active=false / products: products_id.inventory - cart.products_id.count / student:cart.user_id.points- (cart.products.cost + cart.products.count)
+# Make these on front end using functions
+
 
 
 #     try:

@@ -15,10 +15,11 @@ from django.shortcuts import get_object_or_404
 def get_by_user(request, user_id):
     if request.method=='GET':
         try:
-            comments = Comments.objects.filter(user_id=user_id)
+            comments = Comments.objects.filter(user=user_id)
         except comments == None:
             return Response (status=status.HTTP_204_NO_CONTENT)
-        serializer = CommentsSerializer(comments, many=True)
+        serializer = CommentsSerializer(comments, data=request.data)
+        serializer.is_valid()
         return Response(serializer.data)
 #GET All Comments
 @api_view(['GET'])
