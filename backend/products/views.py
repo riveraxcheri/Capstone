@@ -13,26 +13,27 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 # Create your views here.
-# PRODUCTS CRUD /// *DONE*
+# PRODUCTS CRUD ///
 # // Only need Get and Post requests/ Update & Delete through Admin Page
 #RETRIEVE *DONE*
 @api_view (['GET']) #for Store Page
 @permission_classes([AllowAny])
-# GET ALL
+# GET ALL 
 def get_all_products(request):
     request.method == 'GET'
     products = Products.objects.all()
     serializer = ProductsSerializer(products, many=True)
     return Response(serializer.data)
-# GET BY ID
-@api_view (['GET']) #for Store Page
+# GET BY ID             ///should I make arg data instead of pk?**
+@api_view (['GET']) #for Store Page to search for a product by id
 @permission_classes([AllowAny])
 def product_by_id(request, pk):
     request.method == 'GET'
     products = get_object_or_404(Products, pk=pk)
     serializer = ProductsSerializer(products, data=request.data)
     return Response(serializer.data)
-#CREATE *DONE*
+
+# CREATE PRODUCTS
 # POST 
 @api_view(['POST']) #for staff to add product inventory
 @permission_classes([IsAuthenticated])
@@ -65,21 +66,25 @@ def create_cart(request, user_id):
 @permission_classes([IsAuthenticated])
 # add to cart
 def add_cart_products(request, products_pk, cart_pk):
-    request.method == 'PATCH'
-    try:
-        products = Products.objects.get(pk=products_pk)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    try:
-        cart = Cart.objects.get(pk=cart_pk)
-    except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+    if request.method == 'PATCH':
+        try:
+            products = Products.objects.get(pk=products_pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        try:
+            cart = Cart.objects.get(pk=cart_pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    cart.products.add(products)
-    cart.save()
-    serializer = CartSerializer(cart)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+        if cart.is_active:
+            cart.products.add(products)
+            cart.save()
+            serializer = CartSerializer(cart)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        # return create_cart()??
+
+ 
 
 @api_view(['PATCH']) 
 @permission_classes([IsAuthenticated])
@@ -102,7 +107,7 @@ def remove_cart_products(request, products_pk, cart_pk):
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 # IN PROGRESS //// GET CART
-@api_view (['GET']) #for Store Page
+@api_view (['GET']) #To pull cart by cart id 
 @permission_classes([AllowAny])
 def cart_view(request,pk):
     request.method == 'GET'
@@ -115,7 +120,7 @@ def cart_view(request,pk):
 
 
 #     try:
-#         user = User.objects.get(pk=user_pk)
+#         user = Cart.objects.get(user_id=user_id)
 #     except:
 #         return Response(status=status.HTTP_404_NOT_FOUND)
 #     try:
