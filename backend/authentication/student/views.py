@@ -18,7 +18,7 @@ def students_list(request):
     serializer = RegistrationSerializer(students, many=True)
     return Response(serializer.data)
 # GET_BY_ID *DONE* path= 'students/<int:pk>/'
-@api_view (['GET'])
+@api_view (['GET', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def students_by_id(request, pk):
     user = User.objects.filter(is_student=True)
@@ -28,6 +28,9 @@ def students_by_id(request, pk):
     if request.method == 'GET': # DONE
         serializer = RegistrationSerializer(user)
         return Response(serializer.data)
+    if request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 # ///
 #--IN PROGRESS:
 # STUDENTS POINTS /// path= 'points/<int:pk>/'

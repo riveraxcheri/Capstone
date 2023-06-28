@@ -7,9 +7,9 @@ from comments import views
     # Maybe need to select either Student or Teacher, Not just User
     # ////
 urlpatterns = [
-    path('<int:pk>/', views.delete_comm),
-    path('', views.user_post_comm),
-    path('<int:user_id>/', views.get_by_user), 
-    path('all/', views.get_all_comments),
+    path('<int:pk>/', views.delete_comm), #DELETE
+    path('', views.user_post_comm), #POST
+    path('all/', views.get_all_comments), #GET
+    path('user/<int:user_id>/', views.get_by_user), #GET = coming back empty but "200:OK"
 
 ]

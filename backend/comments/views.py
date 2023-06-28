@@ -12,19 +12,24 @@ from django.shortcuts import get_object_or_404
 #GET Comments by user_id
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_by_user(request, user_id):
+def get_by_user(request, pk):
     if request.method=='GET':
         try:
-            comments = Comments.objects.filter(user_id=user_id)
-        except comments == None:
-            return Response (status=status.HTTP_204_NO_CONTENT)
-        serializer = CommentsSerializer(comments, many=True)
+            user = User.objects.get(pk=pk)
+        except:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        # try:
+        #     comments = Comments.objects.filter(user_id=user_id)
+        # except comments == None:
+        #     return Response (status=status.HTTP_204_NO_CONTENT)
+        serializer = CommentsSerializer(user, many=True, data=request.data)
+        serializer.is_valid()
         return Response(serializer.data)
 #GET All Comments
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_all_comments(request):
-    request.method == 'GET'
+    request.method == 'GET' #Done
     comments = Comments.objects.all()
     serializer = CommentsSerializer(comments, many=True)
     return Response(serializer.data)
@@ -32,14 +37,14 @@ def get_all_comments(request):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def user_post_comm(request):
-    if request.method == 'POST':
+    if request.method == 'POST': #Done
         serializer = CommentsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 #DELETE Comment
-@api_view(['DELETE'])
+@api_view(['DELETE']) #Done
 @permission_classes([IsAuthenticated]) 
 def delete_comm(request, pk):
     if request.method == 'DELETE':
