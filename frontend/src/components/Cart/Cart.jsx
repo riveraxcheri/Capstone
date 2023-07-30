@@ -24,6 +24,36 @@ const Cart = ({getCartProducts}) => {
         </div>
 
      );
+    //  const [user, token] = useAuth();
+     //   const [cart, setCart] = useState([]);
+     
+     //   useEffect(() => {
+     //     const fetchCart = async () => {
+     //       try {
+     //         let response = await axios.get("http://127.0.0.1:8000/api/store/cart/${cart_id}/", {
+     //           headers: {
+     //             Authorization: "Bearer " + token,
+     //           },
+     //         });
+     //         setCart(response.data);
+     //       } catch (error) {
+     //         console.log(error.response.data);
+     //       }
+     //     };
+     //     fetchCars();
+     //   }, [token]);
+     //   return (
+     //     <div className="container">
+     //       <h1>Shopping Cart for {user.username}!</h1>
+     //       {cart &&
+     //         cart.map((cart) => (
+     //           <p key={cart.id}>
+     //             {cart.products} {cart.is_active}
+     //           </p>
+     //         ))}
+     //     </div>
+     //   );
+     // };
 }
  
 export default Cart;

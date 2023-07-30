@@ -19,7 +19,7 @@ const Navbar = () => {
         </li>
         <li>
           { (
-            <button onClick={() => navigate("/home")}>Home</button>
+            <button onClick={() => navigate("/")}>Home</button>
           )}
         </li>
         <li>

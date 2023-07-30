@@ -1,4 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+
+:root {
+  --green: #71d300
+  --black: #000000 
+  --white: #ffffff
+  --blue: #1770b9
+  --yellow: #dbeb00
+}
 
 *,
 *::before,
@@ -10,7 +18,17 @@
 
 html {
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif
+}
+
+main {
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+header,
+section {
+  margin: 0 5rem;
 }
 
 p {
@@ -19,8 +37,8 @@ p {
 
 button {
   background-color: transparent;
-  border: 2px solid steelblue;
-  color: steelblue;
+  border: 2px solid var(--blue);
+  color: var(--blue);
   font-size: 1rem;
   font-family: inherit;
   max-width: 100px;
@@ -29,8 +47,8 @@ button {
 
 button:hover {
   cursor: pointer;
-  color: white;
-  background-color: steelblue;
+  color: var(--white);
+  background-color: var(--blue);
 }
 
 .container {

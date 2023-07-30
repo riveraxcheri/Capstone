@@ -61,10 +61,7 @@ export const AuthProvider = ({ children }) => {
         let loggedInUser = jwtDecode(response.data.access);
         setUser(setUserObject(loggedInUser));
         setIsServerError(false);
-        if (loggedInUser.is_student){
-        navigate("/student_home")};
-        if (!loggedInUser.is_student){
-        navigate("/teacher_home")};
+        navigate("/");
       } else {
         navigate("/register");
       }
