@@ -28,8 +28,6 @@ function App() {
   return (
     <div>
       <Navbar />
-      <h1>Welcome</h1>
-      <h2>{user.username}</h2>
       <Routes>
         <Route
           path="/"

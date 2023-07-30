@@ -1,13 +1,4 @@
 
-
-:root {
-  --green: #71d300
-  --black: #000000 
-  --white: #ffffff
-  --blue: #1770b9
-  --yellow: #dbeb00
-}
-
 *,
 *::before,
 *::after {
@@ -37,8 +28,8 @@ p {
 
 button {
   background-color: transparent;
-  border: 2px solid var(--blue);
-  color: var(--blue);
+  border: 2px solid steelblue;
+  color: steelblue;
   font-size: 1rem;
   font-family: inherit;
   max-width: 100px;
@@ -47,13 +38,13 @@ button {
 
 button:hover {
   cursor: pointer;
-  color: var(--white);
-  background-color: var(--blue);
+  color: white;
+  background-color: steelblue;
 }
 
 .container {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 1200px;
   overflow: auto;
   text-align: center;
 }

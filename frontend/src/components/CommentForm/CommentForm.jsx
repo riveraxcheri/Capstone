@@ -3,7 +3,7 @@ import useCustomForm from '../../hooks/useCustomForm';
 
 //onSubmit reset?
 
-const CommentForm = ({addComment, getComments}) => {
+const CommentForm = ({addComment, getAllComments}) => {
     const [userMsg, setUserMsg] = useState("");
     const [date, setDate] = useState("")
     const [formData, handleSubmit, handleInputChange, reset] = useCustomForm(
@@ -20,7 +20,7 @@ const CommentForm = ({addComment, getComments}) => {
                     value={formData.userMsg}
                     onChange={handleInputChange}/>
                 </lable>
-                <button onClick={addComment(setUserMsg, setDate).then(getComments())}>
+                <button onClick={addComment(setUserMsg, setDate).then(getAllComments())}>
                     Post Message
                 </button>
                 </form>
