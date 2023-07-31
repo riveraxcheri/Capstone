@@ -1,27 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import useCustomForm from '../../hooks/useCustomForm';
+import "./CommentForm.css"
 
 //onSubmit reset?
+//addComment function
 
-const CommentForm = ({addComment, getAllComments}) => {
-    const [userMsg, setUserMsg] = useState("");
-    const [date, setDate] = useState("")
+
+const CommentForm = ({addComment}) => {
+    const [message, setMessage] = useState("");
+
     const [formData, handleSubmit, handleInputChange, reset] = useCustomForm(
-        userMsg,
-        setUserMsg
+        message,
+        setMessage
     );
+
+
     return ( 
-        <div className='comment_container'>
+        <div className='comment-container'>
             <form className='comment_form' onSubmit={handleSubmit}>
-                <lable>
+                <h4>
                     Send a Positive Behavior Reinforcement Msg!
-                    <input type='text'
-                    name='userMsg'
-                    value={formData.userMsg}
-                    onChange={handleInputChange}/>
-                </lable>
-                <button onClick={addComment(setUserMsg, setDate).then(getAllComments())}>
-                    Post Message
+                    </h4>
+                    <label htmlFor='email'
+                    placeholder='Email'>
+                        Email
+                    </label>
+                    <input type='email'
+                    name='email'/>
+                    <label htmlFor='message'
+                    placeholder='message'>
+                        Message
+                    </label>
+                    <textarea
+                    name='message'
+                    rows="4"
+                    columns= "50"
+                    value={formData.message}
+                    onChange={handleInputChange}></textarea>
+                <button type='submit'>
+                    Submit
                 </button>
                 </form>
                 
@@ -32,3 +49,4 @@ const CommentForm = ({addComment, getAllComments}) => {
  
 export default CommentForm;
 // {addComment, getComments}
+//onClick={addComment(setUserMsg).then(getAllComments())}

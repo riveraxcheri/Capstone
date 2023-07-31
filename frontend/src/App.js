@@ -15,8 +15,8 @@ import Navbar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import Cart from "./components/Cart/Cart";
 import SearchBar from "./components/SearchBar/SearchBar";
-import TeacherPage from "./pages/HomePage/TeacherPage";
-import StudentPage from "./pages/HomePage/StudentPage";
+import TeacherHome from "./pages/HomePage/TeacherHome";
+import StudentHome from "./pages/HomePage/StudentHome";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -33,7 +33,7 @@ function App() {
           path="/"
           element={
             <PrivateRoute>
-              {user?.is_student === true ? <StudentPage /> : <TeacherPage />}
+              {user?.is_student === true ? <StudentHome /> : <TeacherHome />}
             </PrivateRoute>
           }
         />

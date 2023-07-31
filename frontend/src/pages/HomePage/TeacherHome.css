@@ -1,0 +1,6 @@
+.teacher-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1rem 1rem;
+}
