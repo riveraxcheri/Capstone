@@ -17,6 +17,7 @@ import Cart from "./components/Cart/Cart";
 import SearchBar from "./components/SearchBar/SearchBar";
 import TeacherHome from "./pages/HomePage/TeacherHome";
 import StudentHome from "./pages/HomePage/StudentHome";
+import MessageBoard from "./components/MessageBoard/MessageBoard";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -45,6 +46,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/comments" element={<MessageBoard />} />
         <Route path="/store" element={<StorePage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />

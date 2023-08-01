@@ -1,46 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import useCustomForm from '../../hooks/useCustomForm';
+import reset from '../../hooks/useCustomForm';
 import "./CommentForm.css"
+
 
 //onSubmit reset?
 //addComment function
 
 
-const CommentForm = ({addComment}) => {
-    const [message, setMessage] = useState("");
+const CommentForm = (props) => {
+    const [comment, setComment] = useState("");
+    const [studentChoice, setStudentChoice] = useState("");
 
-    const [formData, handleSubmit, handleInputChange, reset] = useCustomForm(
-        message,
-        setMessage
-    );
+    function handleSubmit(event) {
+        event.preventDefault();
+        const formValues = {
+            user: studentChoice,
+            comm_text: comment,
+        };
+        console.log(formValues);
+        props.addNewComment(formValues).then(response => props.getAllComments());
+    }
 
 
     return ( 
         <div className='comment-container'>
-            <form className='comment_form' onSubmit={handleSubmit}>
+            <form className='comment-form' onSubmit={(event) => handleSubmit(event)}>
                 <h4>
-                    Send a Positive Behavior Reinforcement Msg!
+                    Comments:
                     </h4>
-                    <label htmlFor='email'
-                    placeholder='Email'>
-                        Email
+                    <label>
+                        Student:
                     </label>
-                    <input type='email'
-                    name='email'/>
-                    <label htmlFor='message'
-                    placeholder='message'>
+                    <input type="search"
+                    name="student"
+                    placeholder="Enter Student Info"
+                    value={studentChoice}
+                    onChange={(event) => setStudentChoice(event.target.value)}/>
+                    <label>
                         Message
                     </label>
                     <textarea
-                    name='message'
+                    name="comment"
                     rows="4"
                     columns= "50"
-                    value={formData.message}
-                    onChange={handleInputChange}></textarea>
-                <button type='submit'>
+                    value={comment}
+                    onChange={(event) => setComment(event.target.value)}></textarea>
+                <button type="submit" onClick={reset}>
                     Submit
                 </button>
-                </form>
+            </form>
                 
 
         </div>

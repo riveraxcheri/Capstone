@@ -11,7 +11,7 @@ const ProductCard = () => {
                 <h3 className="card-title">Product Name</h3>
                 <p className="card-category">category</p>
                 <p className= "card-cost">points</p>
-                <button className="btn btn-primary">Add to Cart</button>
+                <button class="btn btn-primary">Add to Cart</button>
             </div>
 
             <div className="card">

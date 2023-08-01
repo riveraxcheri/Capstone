@@ -7,6 +7,8 @@ import DeleteButton from '../DeleteButton/DeleteButton';
 const StudentInfo = ({student}) => {
     // const [user, token] = useAuth();
     const [qrCode, setQrCode] = useState([]);
+    // const [studentId, setStudentId] = useState();
+    // const [studentName, setStudentName] = useState("");
     // const [student, setStudent] = useState("");
     // const [userId, setUserId] = useState("");
     // const [entries, setEntries] = useState([]);

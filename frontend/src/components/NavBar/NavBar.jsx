@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className="navBar">
       <ul>
         <li className="brand">
-          <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+          <Link to="/store" style={{ textDecoration: "none", color: "white" }}>
             <b>Academy PBIS Store</b>
           </Link>
         </li>
@@ -21,7 +21,7 @@ const Navbar = () => {
         <li>{<button onClick={() => navigate("/store")}>Store</button>}</li>
         <li>{<button onClick={() => navigate("/cart")}>Cart</button>}</li>
         <li>
-          {<button onClick={() => navigate("/comments")}>Message Board</button>}
+          {<button onClick={() => navigate("/comments")}>Message Board </button>}
         </li>
         <li>
           {user ? (

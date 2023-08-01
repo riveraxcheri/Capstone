@@ -3,6 +3,7 @@ import React from 'react';
 import Comment from "../Comment/Comment";
 
 const CommentList = ({ entries }) => {
+
   let entriesReversed = [...entries].reverse()
 
   return (
