@@ -3,12 +3,12 @@ import React from 'react';
 import Comment from "../Comment/Comment";
 
 const CommentList = ({ entries }) => {
-
+  let entriesReversed = [...entries].reverse()
 
   return (
     <ul>
-      {entries?.map((el) => (
-        <Comment comment={el} />
+      {entriesReversed?.map((entry) => (
+        <Comment entry={entry} key= {entry.id}/>
       ))}
     </ul>
   );

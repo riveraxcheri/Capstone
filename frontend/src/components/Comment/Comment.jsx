@@ -1,13 +1,13 @@
 import React from 'react';
 
 
-const Comment = ({comment}) => {
+const Comment = ({entry}) => {
     
 
     return ( 
         <li className='comment'>
-            <h4>{comment.user.email}</h4>
-            <p>{comment && comment?.comm_text}</p>
+            <h4>{entry.user.email}</h4>
+            <p>{entry && entry?.comm_text}</p>
         </li>
      );
 }
