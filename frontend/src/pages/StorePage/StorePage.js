@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
 
-import axios from "axios";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import Dropdown from "../../components/Dropdown/Dropdown";
-import ProductList from "../../components/ProductList/ProductList";
+// import axios from "axios";
+// import Dropdown from "../../components/Dropdown/Dropdown";
+// import ProductList from "../../components/ProductList/ProductList";
 
 const StorePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -48,13 +48,22 @@ const StorePage = () => {
 //         getAllProducts();
 //     }
 // }
+// //PATCH Add To Cart//
+// async function addToCart() {
+//   if (cart?.is_active === true) { 
+//      const response = await axios.patch(
+//        `http://127.0.0.1:8000/api/store/add/${itemId}/cart/${cartId}/`
+//      );
+//   } else {
+//    createCart();
+// }
+
 
 
   return (
     <div className="container">
       <h1>Welcome to the Academy PBIS Store, {user.username}!</h1>
-        <Dropdown/>
-        <ProductList items={items} userInput={userInput}/>
+
         <ProductCard/>
         
         

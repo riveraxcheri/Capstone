@@ -1,7 +1,7 @@
 import React from 'react';
 import EditButton from '../EditButton/EditButton';
 import DeleteButton from '../DeleteButton/DeleteButton';
-import {blankImage} from '../../assests/images/blank_image.png'
+import blankImage from '../../assests/images/blank_image.png'
 
 
 const Product = ({item}) => {

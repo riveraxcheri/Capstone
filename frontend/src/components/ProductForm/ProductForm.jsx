@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-const ProductForm = (props) => {
+const ProductForm = ({addNewItem}) => {
     const [itemName, setItemName] = useState("");
     const [itemCategory, setItemCategory] = useState("");
     const [itemCost, setItemCost] = useState(0);
@@ -14,7 +14,7 @@ const ProductForm = (props) => {
           inventory: itemInventory,
         };
         console.log(formValues);
-        props.addNewItem(formValues).then(response =>props.getAllItems())
+        addNewItem(formValues)
         ;
       }
     return ( 

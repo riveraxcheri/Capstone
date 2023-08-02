@@ -42,7 +42,7 @@ def students_by_id(request, pk):
 
 # GET POINTS / UPDATE POINTS
 @api_view (['GET','PUT'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def students_points(request, pk):
     student = get_object_or_404(Student, pk=pk)
     if request.method == 'GET': # DONE

@@ -1,0 +1,26 @@
+.student-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: 2rem 2rem;
+    padding:1rem 1rem;
+    gap:1rem;
+    background-color: rgb(112, 188, 190);
+}
+.student-home button {
+    background: rgb(0, 118, 120);
+    border: 2px solid white;
+    color: white;
+    padding: 0.4rem 0.5rem;
+  }
+  
+.student-home button:hover {
+    background: white;
+    border: 2px solid rgb(0, 118, 120);
+    color: rgb(0, 118, 120);
+    cursor: pointer;
+  }

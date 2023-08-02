@@ -7,7 +7,7 @@ form {
     margin: 1rem 1rem;
     gap: 0.5rem;
     border: 1px solid black;
-    background-color: lightblue;
+    background-color:   rgb(15, 158, 161);
 }
 
 form input{

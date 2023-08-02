@@ -9,11 +9,12 @@ li {
 }
 
 .navBar {
-  background: rgb(0, 90, 164);
+  background: #019f97;
   box-shadow: 4px 2px 5px gray;
   color: white;
   margin-bottom: 2rem;
-  padding: 1.5rem 2rem;
+  padding: 1.5rem 1.5rem;
+  position:inherit;
 }
 
 .navBar button {
@@ -25,7 +26,8 @@ li {
 
 .navBar button:hover {
   background: white;
-  color: steelblue;
+  border: 2px solid rgb(0, 118, 120);
+  color: rgb(0, 118, 120);
   cursor: pointer;
 }
 

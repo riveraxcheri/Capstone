@@ -18,13 +18,19 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import TeacherHome from "./pages/HomePage/TeacherHome";
 import StudentHome from "./pages/HomePage/StudentHome";
 import MessageBoard from "./components/MessageBoard/MessageBoard";
+import ProductList from "./components/ProductList/ProductList";
+import StudentTable from "./components/StudentInfo/StudentTable";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
+import QrAccessPage from "./components/QrAccessPage/QrAccessPage";
 
 function App() {
   const [userInput, setUserInput] = useState([""]);
-  const [user, setUser] = useAuth();
+  const [user, token] = useAuth();
+  const [studentData, setStudentData] = useState([""]);
+  const [items, setItems] = useState();
+  const [students, setStudents] = useState();
 
   return (
     <div>
@@ -35,6 +41,42 @@ function App() {
           element={
             <PrivateRoute>
               {user?.is_student === true ? <StudentHome /> : <TeacherHome />}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/qrcode"
+          element={
+            <PrivateRoute>
+              {user?.is_student === false ? (
+                <QrAccessPage studentData={studentData} />
+              ) : (
+                <StudentHome />
+              )}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/student"
+          element={
+            <PrivateRoute>
+              {user?.is_student === false ? (
+                <StudentTable students={students} userInput={userInput}/>
+              ) : (
+                <StudentHome />
+              )}
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              {user?.is_student === false ? (
+                <ProductList items={items} userInput={userInput}/>
+              ) : (
+                <StorePage />
+              )}
             </PrivateRoute>
           }
         />
