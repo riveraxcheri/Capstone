@@ -6,7 +6,8 @@
     flex-wrap: wrap;
     box-sizing: border-box;
     border: 1px solid black;
-    margin: 4rem 2rem
+    margin: 4rem 2rem;
+    background-color: rgb(112, 188, 190);
 }
 
 .card {
@@ -19,6 +20,7 @@
     border: 1px solid black;
     padding: 1rem 1rem;
     margin: 1rem 1rem;
+    background-color: white;
 
 }
 
@@ -28,22 +30,22 @@ img {
 }
 
 .card-title {
-    color: steelblue;
-    text-decoration: underline;
+    color: rgb(0, 118, 120);
+    text-decoration:overline ;
 }
 
 button {
-    background-color: transparent;
-    border: 2px solid steelblue;
-    color: steelblue;
+    background-color: rgb(0, 118, 120);
+    border: 2px solid rgb(0, 118, 120);
+    color: white;
     font-size: 1rem;
     font-family: inherit;
     max-width: 100px;
-    padding: 0rem 0rem;
+    padding: 0.1rem 0.1rem;
 }
 
 button:hover {
     cursor: pointer;
-    color:white;
-    background-color: steelblue;
+    color:rgb(0, 118, 120);
+    background-color: white;
 }

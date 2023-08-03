@@ -1,0 +1,16 @@
+.store-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    border: 1px solid black;
+    margin: 2rem 2rem;
+    padding:1rem 1rem;
+    gap:1rem;
+    background-color: rgb(112, 188, 190);
+}
+.card-container {
+    background-color: white;
+}

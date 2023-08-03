@@ -13,64 +13,78 @@ import QrAccessPage from "../../components/QrAccessPage/QrAccessPage";
 
 const TeacherHome = () => {
   const [user, token] = useAuth();
-  const [student, setStudent] = useState([]);
+  const [studentInfo, setStudentInfo] = useState([]);
   const [items, setItems] = useState([]);
 
 
 
+
+
   useEffect(() => {
-    console.log("Hello World");
+    allProducts();
   }, []);
-  //Functions
-  //GET Student Info
-    async function getStudentInfo() {
-        const response = await axios.get("http://127.0.0.1:8000/api/auth/students/");
-        console.log(response.data);
-        setStudent(response.data);
-    }
-  //GET All Products
-    async function getAllItems() {
-        const response = await axios.get("http://127.0.0.1:8000/api/store/all/");
-        console.log(response.data);
-        setItems(response.data);
-    }
-  //POST Add New Product
-    async function addNewItem(newItem) {
-        const response = await axios.post(
-            "http://127.0.0.1:8000/api/store/all/",
-            newItem
-        );
-        if (response.status === 204) {
-            console.log("New Item Added");
-            getAllItems();
+//Functions
+//GET Student Info
+  const getStudentInfo = async () => {
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/api/auth/students")
+      console.log(response.data);
+      setStudentInfo(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+  };
+  getStudentInfo();
+  };
+
+//GET All Products
+  const allProducts = async () => {
+    try {
+      let response = await axios.get("http://127.0.0.1:8000/api/store/all/")
+      console.log(response.data);
+      setItems(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+  };
+  allProducts();
+  };
+//POST Add New Product
+  async function addProduct(newProduct) {
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/store/",
+        newProduct,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
+      );
+    } catch (error) {
+      console.log(error.response.data);
     }
+  };
 
     // Instaniation
     return (
       <div className="teacher-home">
       <h1>Teacher Home Page</h1>
       <h2>Welcome {user.first_name}!</h2>
-      <div className="quick-section">
-        <h3> Quick Access </h3>
-          <QrAccessPage studentData={student}/>
-      </div>
+
       <div className="products-section">
         
         <h3> Products </h3>
-          <ProductForm items={items} addNewItem={addNewItem} getAllItems={getAllItems}/>
+          <ProductForm items={items} addProduct={addProduct}/>
           <Link to={"/products"}>
             <button>View/Edit Products</button>
           </Link>
-          <button onClick={getAllItems}>Get All Products</button>
+          <button onClick={()=>allProducts()}>Get All Products</button>
       </div>
       <div className="students-section">
 
         <h3> Students </h3>
-          <Link to={"/student"}>
-            <button>Student Info</button>
-          </Link>
-          <button onClick={getStudentInfo}>Get All Students Info</button>
+          <button onClick={()=> getStudentInfo()}>
+            Get All Students Info
+          </button>
         <h4> Register New Student </h4>
           <Link to={"/register"}>
               <button>Add Student</button>

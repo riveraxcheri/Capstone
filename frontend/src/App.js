@@ -20,6 +20,7 @@ import StudentHome from "./pages/HomePage/StudentHome";
 import MessageBoard from "./components/MessageBoard/MessageBoard";
 import ProductList from "./components/ProductList/ProductList";
 import StudentTable from "./components/StudentInfo/StudentTable";
+import Transactions from "./components/Transactions/Transactions";
 
 // Util Imports
 import PrivateRoute from "./utils/PrivateRoute";
@@ -85,6 +86,14 @@ function App() {
           element={
             <PrivateRoute>
               <Cart />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/transactions"
+          element={
+            <PrivateRoute>
+              <Transactions />
             </PrivateRoute>
           }
         />
